@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Data</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h1>Admin Data</h1>
+    <div id="adminData">
+      <p><strong>ID:</strong> <span id="id"></span></p>
+      <p><strong>Name:</strong> <span id="name"></span></p>
+      <p><strong>Email:</strong> <span id="email"></span></p>
+      <p><strong>Role:</strong> <span id="role"></span></p>
+      <img id="profileImage" src="../prisma//uploads//1685773879432-msql.JPG" alt="Profile Image">
+    </div>
+
+    <button onclick="fetchAdminData()">Fetch Admin Data</button>
+
+    <script>
+      function fetchAdminData() {
+        fetch('http://localhost:5000/admin/6')
+          .then(response => response.json())
+          .then(adminData => {
+            document.getElementById('id').textContent = adminData.data.id;
+            document.getElementById('name').textContent = adminData.data.name;
+            document.getElementById('email').textContent = adminData.data.email;
+            document.getElementById('role').textContent = adminData.data.role;
+            document.getElementById('profileImage').src = `../images/${adminData.data.profileImage}`;
+            
+          })
+          .then(data=>console.log(data.data))
+          .catch(error => {
+            console.log(error);
+          });
+      }
+    </script>
+  </body>
+</html>
